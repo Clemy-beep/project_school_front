@@ -2,25 +2,29 @@
   <h1>Bienvenue sur le site du groupe scolaire Augustin</h1>
   <div id="login">
     <h1>Login</h1>
-    <form @submit.prevent="login">
+    <form @submit.prevent="handleSubmit">
       <input
         type="text"
         name="username"
         v-model="user.username"
-        placeholder="Username"
+        placeholder="Votre identifiant"
+        required
       />
       <input
         type="password"
         name="password"
         v-model="user.password"
-        placeholder="Password"
+        placeholder="Votre mot de passe"
+        required
       />
-      <input value="Ajouter" type="submit" id="co-button" />
+      <input value="Connexion" type="submit" id="co-button" />
     </form>
+    <span id="error">{{ error }} </span>
   </div>
 </template>
 
 <script>
+import jwt_decode from "jwt-decode";
 export default {
   data() {
     return {
@@ -28,22 +32,55 @@ export default {
         username: "",
         password: "",
       },
+      error: "",
     };
   },
   methods: {
-    connexion() {
+    handleSubmit: async function () {
       if (this.user.username != "" && this.user.password != "") {
-        if (
-          this.user.username == this.user.username &&
-          this.user.password == this.user.password
-        ) {
-          this.$emit("HandleSubmit", this.user);
-        } else {
-          console.log("The username and / or password is incorrect");
+        let response = await fetch("http://127.0.0.1:8000/api/login_check", {
+          method: "POST",
+          body: JSON.stringify(this.user),
+          headers: {
+            Accept: "application/json",
+            "Content-Type": "application/json",
+          },
+        })
+          .then((r) => {
+            return r.json();
+          })
+          .catch((e) => {
+            this.error = e.toString();
+            console.lgo(e);
+          });
+
+        if (response.token) {
+          sessionStorage.clear();
+          localStorage.clear();
+          sessionStorage.setItem("token", response.token);
+
+          let decoded = jwt_decode(response.token);
+          let role = decoded.roles;
+
+          if (role.indexOf("ROLE_TEACHER") >= 0) {
+            sessionStorage.setItem("role", "teacher");
+          } else if (role.indexOf("ROLE_ADMIN") >= 0) {
+            sessionStorage.setItem("role", "admin");
+          } else sessionStorage.setItem("role", "student");
+          this.redirect();
         }
-      } else {
-        console.log("A username and password must be present");
       }
+
+      // pour rediriger plus tard sur une page   router.push("home");
+      else {
+        this.error = "Merci de remplir tous les champs";
+      }
+    },
+    redirect: function () {
+      let role = sessionStorage.getItem("role");
+      if (role === "admin") this.$router.push("/admin");
+      else if (role === "teacher") this.$router.push("/teacher");
+      else this.$router.push("/student");
     },
   },
 };

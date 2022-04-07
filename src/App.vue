@@ -1,36 +1,15 @@
-<!-- <template>
-<header class="main-header">
-<nav class="navbar">
-      <div class="navbar__logo">
-        <a href="#">
-          <h1>Groupe Augustin</h1>
-        </a>
-      </div>
-      <ul>
-        <li>
-          <a href="/notes">
-            Mes notes
-            <span class="material-icons">grade</span>
-          </a>
-        </li>
-        <li>
-          <a href="#">
-            Deconnexion
-            <span class="material-icons">logout</span>
-          </a>
-        </li>
-        <li>
-          <a href="#"></a>
-        </li>
-      </ul>
-    </nav>
-  </header>
+<template>
+  <router-view />
 </template>
-
+<script lang="ts">
+export default {};
+</script>
 <style>
 * {
   font-family: "Roboto", sans-serif;
+  background-color: black;
 }
+
 /* HEADER */
 
 .main-header {
@@ -75,9 +54,8 @@ h1 {
   margin-left: 1%;
   font-size: 40px;
 }
-</style> -->
+</style>
 
 <script setup lang="ts">
 import { RouterLink, RouterView } from "vue-router";
-import login from "@/components/LoginForm.vue";
 </script>
