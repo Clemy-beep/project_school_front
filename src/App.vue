@@ -17,6 +17,9 @@ export default {};
   background-image: linear-gradient(rgba(0, 0, 0, 0.7) 10%, rgba(0, 0, 0, 0));
   color: rgb(255, 255, 255);
 }
+p {
+  color: lightgray;
+}
 
 a {
   color: #ffffff;
@@ -46,16 +49,8 @@ nav li {
 }
 
 h1 {
-  color: #e50914;
-  font-family: "american";
-  width: 100%;
-  align-items: center;
-  display: flex;
-  margin-left: 1%;
-  font-size: 40px;
+  color: white;
 }
 </style>
 
-<script setup lang="ts">
-import { RouterLink, RouterView } from "vue-router";
-</script>
+<script setup lang="ts"></script>

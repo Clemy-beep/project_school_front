@@ -20,13 +20,49 @@ const routes: Array<RouteRecordRaw> = [
     path: "/teacher",
     name: "teacher",
     component: () =>
-      import(/* webpackChunkName: "admin" */ "../views/TeacherView.vue"),
+      import(/* webpackChunkName: "teacher" */ "../views/TeacherView.vue"),
   },
   {
     path: "/student",
     name: "student",
     component: () =>
-      import(/* webpackChunkName: "admin" */ "../views/StudentView.vue"),
+      import(/* webpackChunkName: "student" */ "../views/StudentView.vue"),
+  },
+  {
+    path: "/admin/all-students",
+    name: "all-students",
+    component: () =>
+      import(
+        /* webpackChunkName: "all-students" */ "../views/AllStudentsView.vue"
+      ),
+  },
+  {
+    path: "/admin/teachers",
+    name: "teachers",
+    component: () =>
+      import(
+        /* webpackChunkName: "all-teachers" */ "../views/AllTeachersView.vue"
+      ),
+  },
+  {
+    path: "/admin/add-student",
+    name: "add-student",
+    component: () =>
+      import(
+        /* webpackChunkName: "add-students" */ "../views/AddStudentView.vue"
+      ),
+  },
+  {
+    path: "/student/:id",
+    name: "student",
+    component: () =>
+      import(/* webpackChunkName: "student" */ "../views/StudentInfosView.vue"),
+  },
+  {
+    path: "/teacher/:id",
+    name: "teacher",
+    component: () =>
+      import(/* webpackChunkName: "teacher" */ "../views/TeacherInfosView.vue"),
   },
 ];
 
