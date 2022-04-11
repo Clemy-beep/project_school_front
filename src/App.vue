@@ -50,6 +50,7 @@ nav li {
 
 h1 {
   color: white;
+  margin-left: 15vw;
 }
 </style>
 

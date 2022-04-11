@@ -72,6 +72,14 @@ const routes: Array<RouteRecordRaw> = [
         /* webpackChunkName: "add-teacher" */ "../views/AddTeacherView.vue"
       ),
   },
+  {
+    path: "/admin/edit-teacher/:id",
+    name: "edit-teacher",
+    component: () =>
+      import(
+        /* webpackChunkName: "edit-teacher" */ "../views/EditTeacherView.vue"
+      ),
+  },
 ];
 
 const router = createRouter({

@@ -1,8 +1,8 @@
 <template>
   <div id="name">
     <h1>{{ teacher.firstname }} {{ teacher.lastname }}</h1>
-    <button>Editer</button>
-    <button>Exclure</button>
+    <button @click="redirect">Editer</button>
+    <button id="delete-teacher" @click="deleteTeacher">Exclure</button>
   </div>
 
   <div id="teacher-infos">
@@ -15,6 +15,7 @@
     <h2>Ancienneté</h2>
     <p>{{ teacher.seniority }} ans</p>
   </div>
+  <span v-if="error !== ''">{{ error }}</span>
 </template>
 <script>
 import { mapState } from "pinia";
@@ -24,6 +25,7 @@ export default {
   data() {
     return {
       teacher: {},
+      error: "",
     };
   },
   computed: {
@@ -34,7 +36,7 @@ export default {
       return this.getTeachers;
     },
   },
-  created() {
+  mounted() {
     this.teacher =
       this.currentTeachers.find(
         (teacher) => teacher.id === this.$route.params.id
@@ -57,6 +59,37 @@ export default {
         });
       if (t.code === 401) this.$router.push("/");
       this.teacher = t;
+    },
+    deleteTeacher: async function () {
+      let conf = await confirm(
+        "Êtes vous sûr de vouloir exclure cet enseignant ? Cette opération est définitive."
+      );
+      if (!conf) {
+        return;
+      }
+      let response = await fetch(
+        `http://127.0.0.1:8000/api/teachers/${this.$route.params.id}`,
+        {
+          method: "DELETE",
+          headers: {
+            Authorization: `Bearer ${sessionStorage.getItem("token")}`,
+          },
+        }
+      )
+        .then((r) => r.json())
+        .catch((e) => {
+          console.log(e);
+        });
+      if (response.code === 401) this.$router.push("/");
+      if (response) {
+        this.error = "Une erreur s'est produite, suppression impossible.";
+        return;
+      }
+      alert("Professeur supprimé avec succès !");
+      this.$router.push("/admin");
+    },
+    redirect: function () {
+      this.$router.push(`/admin/edit-teacher/${this.$route.params.id}`);
     },
   },
 };

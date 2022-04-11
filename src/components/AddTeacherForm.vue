@@ -1,55 +1,16 @@
 <template>
-  <div id="teach-form">
-    <form method="post" @submit.prevent="handleSubmit">
-      <label for="firstname">Prénom</label>
-      <input
-        type="text"
-        name="firstname"
-        id="firstname"
-        v-model="teacher.firstname"
-      />
-      <label for="lastname">Nom</label>
-      <input
-        type="text"
-        name="lastname"
-        id="lastname"
-        v-model="teacher.lastname"
-      />
-      <label for="password">Mot de passe</label>
-      <input
-        type="password"
-        name="password"
-        id="password"
-        v-model="teacher.password"
-      />
-      <label for="email">Email</label>
-      <input type="email" name="email" id="email" v-model="teacher.email" />
-      <label for="age">Âge</label>
-      <input type="number" name="age" id="age" min="18" v-model="teacher.age" />
-      <label for="salary">Salaire</label>
-      <input
-        type="number"
-        name="salary"
-        id="salary"
-        min="1200"
-        v-model="teacher.salary"
-      />
-      <label for="seniority">Ancienneté</label>
-      <input
-        type="number"
-        name="seniority"
-        id="seniority"
-        min="0"
-        v-model="teacher.seniority"
-      />
-      <input type="submit" value="Ajouter un professeur" />
-    </form>
+  <div id="teach-form" :t="teacher">
+    <TeacherForm @handle-submit="handleSubmit" />
     <span id="error">{{ error }}</span>
   </div>
 </template>
 
 <script>
+import TeacherForm from "@/components/TeacherForm.vue";
 export default {
+  components: {
+    TeacherForm,
+  },
   name: "AddTeacherForm",
   data() {
     return {
