@@ -1,10 +1,15 @@
-<!-- <template>
-<header class="main-header">
-<nav class="navbar">
+<script setup lang="ts">
+import { RouterLink, RouterView } from "vue-router";
+import login from "@/components/LoginForm.vue";
+import AddStudent from "./components/AddStudent.vue";
+</script>
+<template>
+  <header class="main-header">
+    <nav class="navbar">
       <div class="navbar__logo">
-        <a href="#">
-          <h1>Groupe Augustin</h1>
-        </a>
+        <router-link to="/login"> <img src="./assets/ecole.png" /></router-link>
+
+        <router-link to="/login">Groupe Scolaire Augustin</router-link>
       </div>
       <ul>
         <li>
@@ -20,15 +25,36 @@
           </a>
         </li>
         <li>
-          <a href="#"></a>
+          <a href="/addstudent">
+            Ajouter un élève <span class="material-icons"> add </span>
+          </a>
         </li>
       </ul>
     </nav>
   </header>
+  <RouterView />
 </template>
 
 <style>
+img {
+  width: 150px;
+  height: 100px;
+  vertical-align: middle;
+}
 * {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: "Roboto", sans-serif;
+}
+
+body {
+  padding: 0;
+  margin: 0;
+  min-height: 100%;
+  background-color: #ffffff;
+  display: flex;
+  flex-direction: column;
   font-family: "Roboto", sans-serif;
 }
 /* HEADER */
@@ -53,7 +79,7 @@ nav {
   min-height: 8vh;
   display: flex;
   align-items: center;
-  justify-content: space-around;
+  justify-content: space-between;
   padding: 10px;
 }
 
@@ -65,19 +91,4 @@ nav ul {
 nav li {
   padding-right: 30px;
 }
-
-h1 {
-  color: #e50914;
-  font-family: "american";
-  width: 100%;
-  align-items: center;
-  display: flex;
-  margin-left: 1%;
-  font-size: 40px;
-}
-</style> -->
-
-<script setup lang="ts">
-import { RouterLink, RouterView } from "vue-router";
-import login from "@/components/LoginForm.vue";
-</script>
+</style>
