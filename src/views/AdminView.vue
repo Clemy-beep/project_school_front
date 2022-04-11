@@ -13,7 +13,7 @@
       <router-link class="card teacher" to="/admin/teachers"
         >Voir les enseignants</router-link
       >
-      <router-link class="card teacher" to="/"
+      <router-link class="card teacher" to="/admin/add-teacher"
         >Ajouter un enseignant</router-link
       >
     </div>

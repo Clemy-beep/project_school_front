@@ -1,5 +1,9 @@
 <template>
-  <h1>{{ teacher.firstname }} {{ teacher.lastname }}</h1>
+  <div id="name">
+    <h1>{{ teacher.firstname }} {{ teacher.lastname }}</h1>
+    <button>Editer</button>
+    <button>Exclure</button>
+  </div>
 
   <div id="teacher-infos">
     <h2>Email</h2>
@@ -67,5 +71,18 @@ h2 {
   display: block;
   width: fit-content;
   margin: 0 auto;
+}
+
+button {
+  border: 1px solid white;
+  color: white;
+  padding: 0.5em;
+  height: 44px;
+  cursor: pointer;
+}
+#name {
+  display: flex;
+  align-items: center;
+  gap: 1em;
 }
 </style>
