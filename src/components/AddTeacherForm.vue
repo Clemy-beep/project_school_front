@@ -15,6 +15,13 @@
         id="lastname"
         v-model="teacher.lastname"
       />
+      <label for="password">Mot de passe</label>
+      <input
+        type="password"
+        name="password"
+        id="password"
+        v-model="teacher.password"
+      />
       <label for="email">Email</label>
       <input type="email" name="email" id="email" v-model="teacher.email" />
       <label for="age">Âge</label>
@@ -26,7 +33,6 @@
         id="salary"
         min="1200"
         v-model="teacher.salary"
-      />
       />
       <label for="seniority">Ancienneté</label>
       <input
@@ -68,6 +74,10 @@ export default {
         this.error = "Merci de renseigner un âge valide";
         return;
       }
+      if (this.teacher.password.length < 8) {
+        this.error = "Le mot de passe doit contenir au moins 8 caractères";
+        return;
+      }
       if (this.teacher.salary < 1200) {
         this.error = "Merci de renseigner un salaire légal";
         return;
@@ -82,10 +92,29 @@ export default {
       this.teacher.username =
         this.teacher.lastname.toLowerCase() +
         "_" +
-        this.teacher.firstname.charAt(0);
-      console.log(this.teacher);
+        this.teacher.firstname.charAt(0).toLowerCase();
+      this.addTeacher();
     },
-    //addTeacher: async function () {},
+    addTeacher: async function () {
+      let response = await fetch("http://127.0.0.1:8000/api/teachers", {
+        method: "POST",
+        body: JSON.stringify(this.teacher),
+        headers: {
+          Accept: "application/json",
+          "Content-Type": "application/json",
+          Authorization: `Bearer ${sessionStorage.getItem("token")}`,
+        },
+      })
+        .then((r) => r.json())
+        .catch((e) => {
+          console.log(e);
+        });
+      if (response.id) {
+        let conf = confirm("Professeur ajouté avec succès");
+        if (conf) this.$router.push("/admin/teachers");
+      }
+      if (response.code === 401) this.$router.push("/");
+    },
   },
 };
 </script>
@@ -103,5 +132,9 @@ input {
 }
 input {
   border: 1px solid white;
+}
+span {
+  color: white;
+  text-align: center;
 }
 </style>
