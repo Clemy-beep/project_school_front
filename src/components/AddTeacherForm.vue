@@ -7,6 +7,7 @@
 
 <script>
 import TeacherForm from "@/components/TeacherForm.vue";
+import { useTeachersStore } from "@/stores/teachers";
 export default {
   components: {
     TeacherForm,
@@ -71,6 +72,7 @@ export default {
           console.log(e);
         });
       if (response.id) {
+        useTeachersStore().$reset();
         let conf = confirm("Professeur ajouté avec succès");
         if (conf) this.$router.push("/admin/teachers");
       }
