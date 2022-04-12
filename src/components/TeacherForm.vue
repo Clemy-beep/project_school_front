@@ -1,5 +1,14 @@
 <template>
   <form @submit.prevent="$emit('handleSubmit')">
+    <div v-if="teacher.username">
+      <label for="username">Identifiant</label>
+      <input
+        type="text"
+        name="username"
+        id="username"
+        v-model="teacher.username"
+      />
+    </div>
     <label for="firstname">Prénom</label>
     <input
       type="text"
@@ -7,6 +16,7 @@
       id="firstname"
       v-model="teacher.firstname"
     />
+
     <label for="lastname">Nom</label>
     <input
       type="text"

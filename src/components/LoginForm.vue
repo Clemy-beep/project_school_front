@@ -64,6 +64,7 @@ export default {
 
           if (role.indexOf("ROLE_TEACHER") >= 0) {
             sessionStorage.setItem("role", "teacher");
+            sessionStorage.setItem("id", decoded.id);
           } else if (role.indexOf("ROLE_ADMIN") >= 0) {
             sessionStorage.setItem("role", "admin");
           } else sessionStorage.setItem("role", "student");

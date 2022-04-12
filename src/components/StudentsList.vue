@@ -1,6 +1,7 @@
 <template>
   <div id="students">
     <div class="student" v-for="student in students" :key="student.id">
+      <span id="exclusion" v-if="student.isExcluded === true"> EXCLU </span>
       <span>{{ student.firstname }} {{ student.lastname }}</span>
       <button>
         <router-link :to="{ path: `/student/${student.id}` }"
@@ -53,7 +54,11 @@ export default {
           console.log(e);
           if (e.message === "Invalid JWT Token") this.$router.push("/");
         });
-      if (response.message === "Invalid JWT Token") this.$router.push("/");
+      if (
+        response.message === "Invalid JWT Token" ||
+        response.message === "Expired JWT Token"
+      )
+        this.$router.push("/");
       if (response["hydra:member"] && response["hydra:member"].length > 0) {
         this.students = response["hydra:member"];
         this.setStudents = this.students;
@@ -81,5 +86,9 @@ button {
   border: 1px solid white;
   margin: 0.5em;
   cursor: pointer;
+}
+
+#exclusion {
+  color: #ee2020;
 }
 </style>

@@ -3,7 +3,7 @@
     <div class="teacher" v-for="teacher in teachers" :key="teacher.id">
       <span>{{ teacher.firstname }} {{ teacher.lastname }}</span>
       <button>
-        <router-link :to="{ path: `/teacher/${teacher.id}` }"
+        <router-link :to="{ path: `/admin/teacher/${teacher.id}` }"
           >Voir la fiche</router-link
         >
       </button>

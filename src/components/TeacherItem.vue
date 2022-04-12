@@ -61,7 +61,7 @@ export default {
       this.teacher = t;
     },
     deleteTeacher: async function () {
-      let conf = await confirm(
+      let conf = confirm(
         "Êtes vous sûr de vouloir exclure cet enseignant ? Cette opération est définitive."
       );
       if (!conf) {
@@ -86,7 +86,8 @@ export default {
         return;
       }
       alert("Professeur supprimé avec succès !");
-      this.$router.push("/admin");
+      useTeachersStore().$reset();
+      this.$router.push("/admin/teachers");
     },
     redirect: function () {
       this.$router.push(`/admin/edit-teacher/${this.$route.params.id}`);

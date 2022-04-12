@@ -111,6 +111,9 @@ export default {
       if (response.message === "Invalid JWT Token") this.$router.push("/");
       if (response["hydra:member"] && response["hydra:member"].length > 0) {
         this.schoolClasses = response["hydra:member"];
+        this.schoolClasses = this.schoolClasses.filter(
+          (schoolClass) => schoolClass.students.length < 15
+        );
         this.setClasses = this.schoolClasses;
         console.log(this.schoolClasses);
       }
@@ -144,6 +147,7 @@ export default {
         this.student.lastname.toLowerCase() +
         "_" +
         this.student.firstname.charAt(0).toLowerCase();
+
       console.log(this.student);
       this.addStudent();
     },

@@ -8,6 +8,7 @@ export const useTeachersStore = defineStore({
   }),
   getters: {
     getTeachers: (state) => state.teachers,
+    getTeacher: (state) => state.teacher,
   },
   actions: {},
 });

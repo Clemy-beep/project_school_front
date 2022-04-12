@@ -1,15 +1,18 @@
 <template>
   <div id="admin">
-    <AdminHeader />
+    <TeacherHeader />
     <h1>Teacher view</h1>
+    <TeacherProfile />
   </div>
 </template>
 
 <script>
-import AdminHeader from "../components/AdminHeader.vue";
+import TeacherHeader from "../components/TeacherHeader.vue";
+import TeacherProfile from "@/components/TeacherProfile.vue";
 export default {
   components: {
-    AdminHeader,
+    TeacherHeader,
+    TeacherProfile,
   },
 };
 </script>

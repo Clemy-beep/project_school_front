@@ -1,6 +1,6 @@
 <template>
-  <div id="teach-form" :t="teacher">
-    <TeacherForm @handle-submit="handleSubmit" />
+  <div id="teach-form">
+    <TeacherForm @handle-submit="handleSubmit" :t="teacher" />
     <span id="error">{{ error }}</span>
   </div>
 </template>
