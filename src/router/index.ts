@@ -80,6 +80,12 @@ const routes: Array<RouteRecordRaw> = [
         /* webpackChunkName: "edit-teacher" */ "../views/EditTeacherView.vue"
       ),
   },
+  {
+    path: "/teacher/add-grade",
+    name: "add-grade",
+    component: () =>
+      import(/* webpackChunkName: "add-grade" */ "../views/AddGradeView.vue"),
+  },
 ];
 
 const router = createRouter({

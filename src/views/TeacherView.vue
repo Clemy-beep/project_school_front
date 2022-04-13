@@ -1,8 +1,10 @@
 <template>
   <div id="admin">
     <TeacherHeader />
-    <h1>Teacher view</h1>
     <TeacherProfile />
+    <button>
+      <router-link to="/teacher/add-grade">Noter mes élèves</router-link>
+    </button>
   </div>
 </template>
 
@@ -16,3 +18,16 @@ export default {
   },
 };
 </script>
+
+<style scoped>
+button {
+  height: 44px;
+  border: 1px solid white;
+  color: white;
+  border-radius: 16px;
+  padding: 0.5em;
+  display: block;
+  margin: 1em auto;
+  cursor: pointer;
+}
+</style>

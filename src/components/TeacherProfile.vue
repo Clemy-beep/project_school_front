@@ -1,6 +1,6 @@
 <template>
   <div id="name">
-    <h1>{{ teacher.firstname }} {{ teacher.lastname }}</h1>
+    <h1>Bienvenue {{ teacher.firstname }} {{ teacher.lastname }}</h1>
   </div>
 
   <div id="teacher-infos">
@@ -38,9 +38,17 @@ export default {
     },
   },
   mounted() {
-    this.teacher = this.currentTeacher || this.fetchTeacher();
+    this.checkStore();
   },
   methods: {
+    checkStore: function () {
+      // eslint-disable-next-line no-prototype-builtins
+      this.teacher = this.currentTeacher.hasOwnProperty(
+        this.currentTeacher.firstname
+      )
+        ? this.currentTeacher
+        : this.fetchTeacher();
+    },
     fetchTeacher: async function () {
       let t = await fetch(
         `http://127.0.0.1:8000/api/teachers/${sessionStorage.getItem("id")}`,
@@ -57,7 +65,7 @@ export default {
         });
       if (t.code === 401) this.$router.push("/");
       this.teacher = t;
-      this.setTeacher = t;
+      this.setTeacher = this.teacher;
     },
   },
 };
