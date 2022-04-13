@@ -47,13 +47,18 @@ export default {
           },
         })
           .then((r) => {
+            this.error =
+              r.status === 401 ? "Identifiant ou mot de passe incorrect" : "";
             return r.json();
           })
           .catch((e) => {
-            this.error = e.toString();
+            this.error = e.message.toString();
             console.lgo(e);
           });
-
+        if (response.message === "Invalid credentials") {
+          this.error = "Mot de passe ou identifiant incorrect.";
+          return;
+        }
         if (response.token) {
           sessionStorage.clear();
           localStorage.clear();
@@ -119,5 +124,8 @@ label {
 }
 #co-button:hover {
   background-color: #181818;
+}
+#error {
+  color: #ee2020;
 }
 </style>
