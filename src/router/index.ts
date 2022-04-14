@@ -19,6 +19,22 @@ const routes: Array<RouteRecordRaw> = [
         /* webpackChunkName: "addstudent" */ "../views/AddStudentView.vue"
       ),
   },
+  {
+    path: "/showstudent",
+    name: "showstudent",
+    component: () =>
+      import(
+        /* webpackChunkName: "showstudent" */ "../views/ShowStudentView.vue"
+      ),
+  },
+  {
+    path: "/selectedstudent/:id",
+    name: "selectedstudent",
+    component: () =>
+      import(
+        /* webpackChunkName: "selectedstudent" */ "../views/SelectedStudentView.vue"
+      ),
+  },
 ];
 
 const router = createRouter({

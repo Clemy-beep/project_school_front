@@ -1,15 +1,14 @@
 <template>
-  <AddStudent @handleSubmit="handleSubmit" />
-  <h1></h1>
+  <SelectedStudent />
 </template>
-
 <script>
 import { useRouter } from "vue-router";
-import AddStudent from "../components/AddStudent.vue";
+import SelectedStudent from "../components/SelectedStudent.vue";
+
 const router = useRouter();
 export default {
   components: {
-    AddStudent,
+    SelectedStudent,
   },
 };
 </script>

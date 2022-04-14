@@ -1,13 +1,14 @@
 <template>
   <div id="ajout">
     <h1>Ajouter un élève</h1>
-    <form @submit.prevent="StudentSubmit">
+    <form @submit.prevent="handleSubmit">
       <input
         type="text"
         name="firstname"
         id="firstname"
         placeholder="Prénom de l'élève"
         v-model="student.firstname"
+        required
       />
 
       <input
@@ -16,6 +17,7 @@
         id="lastname"
         placeholder="Nom de l'élève"
         v-model="student.lastname"
+        required
       />
 
       <input
@@ -24,14 +26,16 @@
         id="gender"
         placeholder="Genre"
         v-model="student.gender"
+        required
       />
 
       <input
-        type="mail"
-        name="mail"
-        id="mail"
+        type="email"
+        name="email"
+        id="email"
         placeholder="Mail d'un parent"
-        v-model="student.mail"
+        v-model="student.email"
+        required
       />
       <input
         type="username"
@@ -39,10 +43,21 @@
         id="username"
         placeholder="Username de l'élève"
         v-model="student.username"
+        required
+      />
+      <input
+        type="password"
+        name="password"
+        id="password"
+        placeholder="mot de passe de l'élève"
+        v-model="student.password"
+        required
       />
 
       <input type="submit" value="Ajouter un élève" id="add-button" />
     </form>
+    <span v-if="succes !== ''" id="succes">{{ succes }} </span>
+    <span id="errors">{{ errors }} </span>
   </div>
 </template>
 
@@ -54,13 +69,16 @@ export default {
         firstname: "",
         lastname: "",
         sexe: "",
-        mail: "",
+        email: "",
         username: "",
+        password: "",
       },
+      succes: "",
+      error: "",
     };
   },
   methods: {
-    StudentSubmit: async function () {
+    handleSubmit: async function () {
       if (this.student.firstname === "") {
         this.errors.push("Il faut ajouter un prénom !");
         return;
@@ -77,9 +95,9 @@ export default {
         this.errors.push("Il faut ajouter le mail des parents !");
         return;
       }
-      let response = await fetch("http://127.0.0.1:8000/api/users", {
+      let response = await fetch("http://127.0.0.1:8000/api/students", {
         method: "POST",
-        body: JSON.stringify(this.user),
+        body: JSON.stringify(this.student),
         headers: {
           // Accept: "application/json",
           "Content-Type": "application/json",
@@ -89,9 +107,11 @@ export default {
           return r.json();
         })
         .catch((e) => {
-          this.error = e.toString();
+          this.succes = e.toString();
           console.log(e);
         });
+
+      this.succes = "Elève ajouté avec succès";
     },
   },
 };
@@ -131,14 +151,13 @@ label {
 
 #add-button {
   margin-top: 2%;
-  width: 33%;
   color: hsla(160, 100%, 37%, 1);
   padding: 10px;
   cursor: pointer;
   background-color: #000000;
   font-weight: bold;
 }
-#co-button:hover {
+#add-button:hover {
   background-color: #181818;
 }
 #ajout {
@@ -147,5 +166,14 @@ label {
   margin: auto;
   padding: 5%;
   border-radius: 20px;
+  margin-top: 5%;
+}
+#succes {
+  color: white;
+  display: flex;
+  justify-content: center;
+  margin-top: 2%;
+  padding: 3%;
+  background-color: green;
 }
 </style>

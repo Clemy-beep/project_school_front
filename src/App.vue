@@ -25,9 +25,14 @@ import AddStudent from "./components/AddStudent.vue";
           </a>
         </li>
         <li>
-          <a href="/addstudent">
+          <router-link to="/addstudent">
             Ajouter un élève <span class="material-icons"> add </span>
-          </a>
+          </router-link>
+        </li>
+        <li>
+          <router-link to="/showstudent">
+            Voir les élèves <span class="material-icons"> assignment_ind </span>
+          </router-link>
         </li>
       </ul>
     </nav>

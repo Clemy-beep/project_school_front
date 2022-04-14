@@ -1,15 +1,15 @@
 <template>
-  <AddStudent @handleSubmit="handleSubmit" />
-  <h1></h1>
+  <ShowStudent />
 </template>
 
 <script>
 import { useRouter } from "vue-router";
-import AddStudent from "../components/AddStudent.vue";
+import ShowStudent from "../components/ShowStudent.vue";
+
 const router = useRouter();
 export default {
   components: {
-    AddStudent,
+    ShowStudent,
   },
 };
 </script>
