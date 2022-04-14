@@ -35,6 +35,14 @@ const routes: Array<RouteRecordRaw> = [
         /* webpackChunkName: "selectedstudent" */ "../views/SelectedStudentView.vue"
       ),
   },
+  {
+    path: "/modifystudent/:id",
+    name: "modifystudent",
+    component: () =>
+      import(
+        /* webpackChunkName: "modifystudent" */ "../views/ModifyStudentView.vue"
+      ),
+  },
 ];
 
 const router = createRouter({
