@@ -73,7 +73,9 @@ export default {
         ? this.currentCourses
         : this.fetchCourses();
     this.students =
-      this.getStudents.length > 0 ? this.getStudents : this.fetchStudents();
+      this.getTeacher.schoolClass.students.length > 0
+        ? this.getTeacher.schoolClass.students
+        : this.fetchStudents();
   },
   methods: {
     fetchStudents: async function () {
@@ -94,6 +96,7 @@ export default {
           student.schoolClass.teacher.id.toString() ===
           sessionStorage.getItem("id")
       );
+      this.setStudents = this.students;
     },
     fetchCourses: async function () {
       let courses = await fetch("http://127.0.0.1:8000/api/courses", {

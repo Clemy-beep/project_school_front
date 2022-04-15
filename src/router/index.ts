@@ -53,10 +53,12 @@ const routes: Array<RouteRecordRaw> = [
       ),
   },
   {
-    path: "/student/:id",
-    name: "student",
+    path: "/admin/student/:id",
+    name: "admin-student",
     component: () =>
-      import(/* webpackChunkName: "student" */ "../views/StudentInfosView.vue"),
+      import(
+        /* webpackChunkName: "see-student" */ "../views/StudentInfosView.vue"
+      ),
   },
   {
     path: "/admin/teacher/:id",

@@ -60,8 +60,6 @@ export default {
           return;
         }
         if (response.token) {
-          sessionStorage.clear();
-          localStorage.clear();
           sessionStorage.setItem("token", response.token);
 
           let decoded = jwt_decode(response.token);
@@ -72,7 +70,10 @@ export default {
             sessionStorage.setItem("id", decoded.id);
           } else if (role.indexOf("ROLE_ADMIN") >= 0) {
             sessionStorage.setItem("role", "admin");
-          } else sessionStorage.setItem("role", "student");
+          } else {
+            sessionStorage.setItem("role", "student");
+            sessionStorage.setItem("id", decoded.id);
+          }
           this.redirect();
         }
       }

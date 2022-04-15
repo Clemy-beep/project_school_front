@@ -4,7 +4,7 @@
       <span id="exclusion" v-if="student.isExcluded === true"> EXCLU </span>
       <span>{{ student.firstname }} {{ student.lastname }}</span>
       <button>
-        <router-link :to="{ path: `/student/${student.id}` }"
+        <router-link :to="{ path: `/admin/student/${student.id}` }"
           >Voir la fiche</router-link
         >
       </button>

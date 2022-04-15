@@ -7,7 +7,8 @@ export const useStudentsStore = defineStore({
     student: {},
   }),
   getters: {
-    getList: (state) => state.students,
+    getStudents: (state) => state.students,
+    getStudent: (state) => state.student,
   },
   actions: {},
 });

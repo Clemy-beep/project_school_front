@@ -65,6 +65,7 @@ export default {
         });
       if (t.code === 401) this.$router.push("/");
       this.teacher = t;
+      console.log(t);
       this.setTeacher = this.teacher;
     },
   },
