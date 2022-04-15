@@ -67,7 +67,7 @@ export default {
       if (!conf) {
         return;
       }
-      let response = await fetch(
+      await fetch(
         `http://127.0.0.1:8000/api/teachers/${this.$route.params.id}`,
         {
           method: "DELETE",
@@ -76,15 +76,13 @@ export default {
           },
         }
       )
-        .then((r) => r.json())
+        .then((r) => {
+          if (r.status === 401) this.$router.push("/");
+          return r.json();
+        })
         .catch((e) => {
           console.log(e);
         });
-      if (response.code === 401) this.$router.push("/");
-      if (response) {
-        this.error = "Une erreur s'est produite, suppression impossible.";
-        return;
-      }
       alert("Professeur supprimé avec succès !");
       useTeachersStore().$reset();
       this.$router.push("/admin/teachers");

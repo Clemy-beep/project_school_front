@@ -1,6 +1,10 @@
 <template>
   <div id="teach-form">
-    <TeacherForm @handle-submit="handleSubmit" :t="teacher" />
+    <TeacherForm
+      @handle-submit="handleSubmit"
+      :t="teacher"
+      :s="schoolClasses"
+    />
     <span id="error">{{ error }}</span>
   </div>
 </template>
@@ -17,9 +21,32 @@ export default {
     return {
       teacher: {},
       error: "",
+      schoolClasses: Array.from(this.fetchClasses()),
     };
   },
+
   methods: {
+    fetchClasses: async function () {
+      let response = await fetch("http://127.0.0.1:8000/api/school_classes", {
+        method: "GET",
+        headers: {
+          Authorization: `Bearer ${sessionStorage.getItem("token")}`,
+        },
+      })
+        .then((r) => r.json())
+        .catch((e) => {
+          console.log(e);
+          if (e.message === "Invalid JWT Token") this.$router.push("/");
+        });
+      if (response.message === "Invalid JWT Token") this.$router.push("/");
+      if (response["hydra:member"] && response["hydra:member"].length > 0) {
+        this.schoolClasses = Array.from(response["hydra:member"]).filter(
+          (schoolClass) => !schoolClass.teacher
+        );
+        console.log(this.schoolClasses);
+      }
+      return this.schoolClasses;
+    },
     handleSubmit: function () {
       if (
         this.teacher.firstname === null ||
@@ -27,7 +54,8 @@ export default {
         this.teacher.email === null ||
         this.teacher.age === null ||
         this.teacher.salary === null ||
-        this.teacher.seniority === null
+        this.teacher.seniority === null ||
+        this.teacher.schoolClass === null
       ) {
         this.error = "Merci de renseigner tous les champs";
         return;
